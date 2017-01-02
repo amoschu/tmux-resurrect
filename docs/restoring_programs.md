@@ -98,3 +98,28 @@ Here's the general workflow for figuring this out:
   file.
 - Now that you know the full and the desired process string use tilde `~` and
   arrow `->` in `.tmux.conf` to make things work.
+
+### Cygwin
+
+Cygwin's built-in `ps` program does not show the full process command so
+restored processes will only be the base command (ie, without arguments). For
+example: `vim` instead of `vim ~/.tmux.conf`. To fix this, install the [procps
+package](http://procps.sourceforge.net/).
+
+Get [apt-cyg](https://github.com/transcode-open/apt-cyg):
+
+    lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
+    install apt-cyg /bin
+
+Install procps:
+
+    apt-cyg install procps
+
+Set the save-command-strategy option in your `.tmux.conf` to procps:
+
+    set -g @resurrect-save-command-strategy 'procps'
+
+Re-source your `.tmux.conf`:
+
+    tmux source-file ~/.tmux.conf
+
