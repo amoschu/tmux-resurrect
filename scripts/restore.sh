@@ -345,7 +345,7 @@ main() {
 		if save_bash_history_option_on; then
 			restore_shell_history
 		fi
-		restore_all_pane_processes
+		restore_all_pane_processes &
 		# below functions restore exact cursor positions
 		restore_active_pane_for_each_window
 		restore_zoomed_windows
