@@ -259,7 +259,11 @@ save_all() {
 	dump_panes   >> "$resurrect_file_path"
 	dump_windows >> "$resurrect_file_path"
 	dump_state   >> "$resurrect_file_path"
-	ln -fs "$(basename "$resurrect_file_path")" "$(last_resurrect_file)"
+	if ! cmp -s "$resurrect_file_path" "$(last_resurrect_file)"; then
+		ln -fs "$(basename "$resurrect_file_path")" "$(last_resurrect_file)"
+	else
+		rm "$resurrect_file_path"
+	fi
 	if capture_pane_contents_option_on; then
 		mkdir -p "$(pane_contents_dir)"
 		dump_pane_contents
